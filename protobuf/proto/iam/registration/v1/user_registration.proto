@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package proto.iam.registration.v1;
+
+import "google/protobuf/empty.proto";
+
+message UserRegistration {}
+
+service UserRegistrationService {
+  rpc register(UserRegistration) returns (google.protobuf.Empty);
+}

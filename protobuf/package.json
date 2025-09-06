@@ -1,0 +1,32 @@
+{
+  "name": "shipping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "22.x",
+    "pnpm": "10.x"
+  },
+  "scripts": {
+    "generate": "buf generate",
+    "build": "../node_modules/.bin/tsc -p tsconfig.json",
+    "main": "gen/ts/index.js",
+    "types": "gen/ts/index.d.ts",
+    "prepublishOnly": "npm run generate && npm run build",
+    "publish:private": "npm publish --registry=https://registry.npmjs.org/"
+  },
+  "files": [
+    "gen/ts"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.57.0",
+    "@grpc/grpc-js": "^1.13.4",
+    "@nestjs/microservices": "^11.1.6",
+    "rxjs": "^7.8.2",
+    "typescript": "^5.9.2"
+  }
+}

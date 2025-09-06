@@ -1,0 +1,9 @@
+version: v1
+plugins:
+  - plugin: buf.build/community/stephenh-ts-proto
+    out: dist
+    opt:
+      - target=ts
+      - nestJs=true
+      - addGrpcMetadata=true
+      - exportCommonSymbols=true
