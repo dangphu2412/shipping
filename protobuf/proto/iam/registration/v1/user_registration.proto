@@ -4,8 +4,15 @@ package proto.iam.registration.v1;
 
 import "google/protobuf/empty.proto";
 
-message UserRegistration {}
+message UserRegistration {
+  string username = 1;
+  string password = 2;
+}
+
+message UserCredentials {
+  string access_token = 1;
+}
 
 service UserRegistrationService {
-  rpc register(UserRegistration) returns (google.protobuf.Empty);
+  rpc register(UserRegistration) returns (UserCredentials);
 }
