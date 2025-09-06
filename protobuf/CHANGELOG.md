@@ -1,5 +1,11 @@
 # @dangphu2412/shipping-protos
 
+## 0.0.4
+
+### Patch Changes
+
+- 8139617: [IAM-Registration]: declare the message
+
 ## 0.0.3
 
 ### Patch Changes
