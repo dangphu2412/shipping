@@ -26,6 +26,7 @@
     "db:migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
+    "@dnp2412/shipping-protos": "^0.0.2",
     "@fastify/compress": "^8.1.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
