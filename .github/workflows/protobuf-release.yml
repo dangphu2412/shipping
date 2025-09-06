@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "protobuf/**"
 
 permissions:
-  contents: write   # needed to push version commits
-  packages: write   # publish to GitHub packages if you ever need
-  id-token: write   # npm provenance support
+  contents: write
+  packages: write
+  id-token: write
 
 jobs:
   release:
@@ -17,37 +19,47 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+        with:
+          version: 10
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: pnpm
+          cache-dependency-path: protobuf/pnpm-lock.yaml
+          registry-url: "https://registry.npmjs.org"
 
       - name: Setup buf
         uses: bufbuild/buf-setup-action@v1
         with:
           version: 1.57.0
 
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
-
       - name: Generate protos
+        working-directory: ./protobuf
         run: buf generate
 
+      - name: Install deps
+        working-directory: ./protobuf
+        run: pnpm install --frozen-lockfile
+
       - name: Build
+        working-directory: ./protobuf
         run: pnpm run build
 
       - name: Version packages (Changesets)
+        working-directory: ./protobuf
         run: pnpm changeset version
 
       - name: Commit version bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "ci: release protobuf [skip ci]"
+          commit_message: "ci: release versions [skip ci]"
           commit_user_name: github-actions
           commit_user_email: github-actions@github.com
           push_options: --force
 
       - name: Publish to npm
         run: pnpm changeset publish
+        working-directory: ./protobuf
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_AUTH_TOKEN }}
