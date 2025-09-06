@@ -26,12 +26,15 @@
     "db:migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
-    "@dnp2412/shipping-protos": "^0.0.2",
+    "@dnp2412/shipping-protos": "^0.0.3",
     "@fastify/compress": "^8.1.0",
+    "@grpc/grpc-js": "^1.13.4",
+    "@grpc/proto-loader": "^0.8.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/mapped-types": "*",
+    "@nestjs/microservices": "^11.1.6",
     "@nestjs/platform-fastify": "^11.1.5",
     "drizzle-orm": "^0.44.4",
     "jsonwebtoken": "^9.0.2",

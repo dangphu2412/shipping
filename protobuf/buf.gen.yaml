@@ -7,3 +7,4 @@ plugins:
       - nestJs=true
       - addGrpcMetadata=true
       - exportCommonSymbols=true
+      - outputIndex=true

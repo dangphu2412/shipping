@@ -1,5 +1,11 @@
 # @dangphu2412/shipping-protos
 
+## 0.0.3
+
+### Patch Changes
+
+- Common: update typescript generation
+
 ## 0.0.2
 
 ### Patch Changes

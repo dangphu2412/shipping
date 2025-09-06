@@ -15,9 +15,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  },
-  "exclude": [
-    "**/*/proto",
-    "**/*/dist"
-  ]
+  }
 }

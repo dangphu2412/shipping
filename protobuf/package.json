@@ -1,8 +1,8 @@
 {
   "name": "@dnp2412/shipping-protos",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "engines": {
     "node": "22.x",
     "pnpm": "10.x"
@@ -24,6 +24,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
+    "@grpc/grpc-js": "^1.13.4",
     "@nestjs/microservices": "^11.1.6",
     "rxjs": "^7.8.2",
     "typescript": "^5.9.2"

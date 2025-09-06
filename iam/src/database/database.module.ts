@@ -14,19 +14,19 @@ export const DB_TOKEN = 'DB_TOKEN';
     {
       provide: DB_TOKEN,
       useFactory: async (configService: ConfigService) => {
-        const pool = new Pool({
-          connectionString: configService.getOrThrow<string>('DATABASE_URL'),
-        });
+        // const pool = new Pool({
+        //   connectionString: configService.getOrThrow<string>('DATABASE_URL'),
+        // });
+        //
+        // const instance = drizzle(pool, { schema });
+        //
+        // const client = await instance.$client.connect();
+        //
+        // client.release();
+        //
+        // Logger.log('Database connected');
 
-        const instance = drizzle(pool, { schema });
-
-        const client = await instance.$client.connect();
-
-        client.release();
-
-        Logger.log('Database connected');
-
-        return instance;
+        return { };
       },
       inject: [ConfigService],
     },
