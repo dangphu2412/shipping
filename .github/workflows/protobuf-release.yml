@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - protobuf
 
 permissions:
   contents: write   # needed to push version commits
