@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { IamModule } from './iam/iam.module';
 import { APP_FILTER } from '@nestjs/core';
-import { RpcServiceExceptionFilter } from './exception/service-exception-filter';
+import { HttpGatewayExceptionFilter } from '@dnp2412/service-common';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { RpcServiceExceptionFilter } from './exception/service-exception-filter'
   providers: [
     {
       provide: APP_FILTER,
-      useClass: RpcServiceExceptionFilter,
+      useClass: HttpGatewayExceptionFilter,
     },
   ],
 })

@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@dnp2412/shipping-protos": "^0.0.4",
-    "@dnp2412/service-common": "0.0.1",
+    "@dnp2412/service-common": "0.1.0",
     "@fastify/compress": "^8.1.0",
     "@grpc/grpc-js": "^1.13.4",
     "@grpc/proto-loader": "^0.8.0",
