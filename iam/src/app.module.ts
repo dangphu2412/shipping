@@ -6,7 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { RegistrationModule } from './registration/registration.module';
 import { APP_FILTER } from '@nestjs/core';
-import { AppExceptionFilter } from '@dnp2412/service-common';
+import { RpcServiceExceptionFilter } from '@dnp2412/service-common';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { AppExceptionFilter } from '@dnp2412/service-common';
   providers: [
     {
       provide: APP_FILTER,
-      useClass: AppExceptionFilter,
+      useClass: RpcServiceExceptionFilter,
     },
   ],
 })
