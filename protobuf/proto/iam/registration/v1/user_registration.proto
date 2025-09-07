@@ -9,10 +9,22 @@ message UserRegistration {
   string password = 2;
 }
 
+message UserBasicLogin {
+  string username = 1;
+  string password = 2;
+}
+
+message UserSessionRenewal {
+  string refresh_token = 1;
+}
+
 message UserCredentials {
   string access_token = 1;
+  string refresh_token = 2;
 }
 
 service UserRegistrationService {
   rpc register(UserRegistration) returns (UserCredentials);
+  rpc login(UserBasicLogin) returns (UserCredentials);
+  rpc renew(UserSessionRenewal) returns (UserCredentials);
 }
