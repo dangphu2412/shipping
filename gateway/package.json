@@ -24,7 +24,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@dnp2412/shipping-protos": "^0.0.4",
+    "@dnp2412/shipping-protos": "^0.1.0",
     "@dnp2412/service-common": "^0.1.0",
     "@fastify/compress": "^8.1.0",
     "@grpc/grpc-js": "^1.13.4",

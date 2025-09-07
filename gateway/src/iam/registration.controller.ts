@@ -3,6 +3,8 @@ import {
   USER_REGISTRATION_SERVICE_NAME,
   UserRegistration,
   UserRegistrationServiceClient,
+  UserBasicLogin,
+  UserSessionRenewal,
 } from '@dnp2412/shipping-protos/dist/proto/iam/registration/v1/user_registration';
 import { ClientGrpc } from '@nestjs/microservices';
 
@@ -21,5 +23,15 @@ export class RegistrationController implements OnModuleInit {
   @Post()
   register(@Body() body: UserRegistration) {
     return this.userRegistrationServiceClient.register(body);
+  }
+
+  @Post('login')
+  login(@Body() body: UserBasicLogin) {
+    return this.userRegistrationServiceClient.login(body);
+  }
+
+  @Post('renew')
+  renew(@Body() body: UserSessionRenewal) {
+    return this.userRegistrationServiceClient.renew(body);
   }
 }
