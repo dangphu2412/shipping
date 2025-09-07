@@ -1,3 +1,5 @@
+import { BusinessException } from '../../../exception/exception';
+
 export class User {
   public id: string;
   public username: string;
@@ -9,7 +11,10 @@ export class User {
     const newUser = new User();
 
     if (username.length < 5) {
-      throw new Error('Username must be at least 5 characters long');
+      throw new BusinessException({
+        code: 'REGISTRATION_POLICY_FAILED',
+        message: 'Username must be at least 5 characters long',
+      });
     }
 
     newUser.username = username;

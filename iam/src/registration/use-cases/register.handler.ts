@@ -26,7 +26,6 @@ export class RegisterUserHandler
   async execute(
     command: RegisterUserCommand,
   ): Promise<UserCredentialsResponse> {
-    console.log(command);
     const user = await this.userRepository.findByUsername(command.username);
 
     if (user) {
