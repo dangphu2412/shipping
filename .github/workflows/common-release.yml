@@ -43,7 +43,7 @@ jobs:
 
       - name: Publish to npm
         run: pnpm changeset publish
-        working-directory: ./protobuf
+        working-directory: /service-common
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_AUTH_TOKEN }}
 
