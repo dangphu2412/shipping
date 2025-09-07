@@ -1,16 +1,15 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { RegisterUserCommand } from '../commands/register.command';
+import { UserCredentialsResponse } from '../response/user-crendetial.response';
 import {
-  RegisterUserCommand,
-  UserCredentialsResponse,
-} from './register.command';
-import { UserRepository, UserRepositoryToken } from './user.repository';
+  UserRepository,
+  UserRepositoryToken,
+} from '../repositories/user.repository';
 import { Inject } from '@nestjs/common';
-import { User } from '../domain/entities/user.entity';
-import {
-  TokenCredentialService,
-  TokenCredentialServiceToken,
-} from './token-credential-service';
+import { User } from '../../domain/entities/user.entity';
 import { BusinessException } from '@dnp2412/service-common';
+import { UserCredentialService } from '../services/user-credential-service';
+import { Hasher, HasherToken } from '../services/hasher';
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler
@@ -19,8 +18,9 @@ export class RegisterUserHandler
   constructor(
     @Inject(UserRepositoryToken)
     private readonly userRepository: UserRepository,
-    @Inject(TokenCredentialServiceToken)
-    private readonly tokenCredentialService: TokenCredentialService,
+    @Inject(HasherToken)
+    private readonly hasher: Hasher,
+    private readonly userCredentialService: UserCredentialService,
   ) {}
 
   async execute(
@@ -35,13 +35,14 @@ export class RegisterUserHandler
       });
     }
 
-    const newUser = User.createNew(command.username, 'admin', command.password);
+    const newUser = User.createNew(
+      command.username,
+      'admin',
+      await this.hasher.hash(command.password),
+    );
 
     const id = await this.userRepository.createNew(newUser);
 
-    return {
-      accessToken: await this.tokenCredentialService.encode({ id }),
-      refreshToken: '',
-    };
+    return this.userCredentialService.getUserCredentials(id);
   }
 }

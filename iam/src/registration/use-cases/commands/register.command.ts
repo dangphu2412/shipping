@@ -4,8 +4,3 @@ export class RegisterUserCommand {
     public readonly password: string,
   ) {}
 }
-
-export type UserCredentialsResponse = {
-  accessToken: string;
-  refreshToken: string;
-};

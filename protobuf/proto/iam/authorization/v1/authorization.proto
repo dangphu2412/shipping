@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.iam.authorization.v1;
+
+message GetAccessRequest {
+  string user_id = 1;
+  string resource = 2;
+  string action = 3;
+}
+
+message AccessResult {
+  bool allowed = 1;
+  string reason = 2;
+}
+
+service UserAuthorizationService {
+  rpc getAccess(GetAccessRequest) returns (AccessResult);
+}
