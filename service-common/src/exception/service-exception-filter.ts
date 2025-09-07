@@ -1,84 +1,42 @@
 import {
   ArgumentsHost,
   Catch,
-  ExceptionFilter,
-  HttpException,
-  HttpStatus,
   Logger,
-} from '@nestjs/common';
-import { Metadata } from '@grpc/grpc-js';
-import type { FastifyReply, FastifyRequest } from 'fastify';
-
-type ExceptionContext = {
-  code: string;
-  businessCode: string;
-  message: string;
-  details?: Record<string, unknown>;
-  metadata: Metadata;
-};
+  RpcExceptionFilter,
+} from "@nestjs/common";
+import { Metadata, status } from "@grpc/grpc-js";
+import { Observable } from "rxjs";
+import { BaseRpcExceptionFilter, RpcException } from "@nestjs/microservices";
+import { BusinessException } from "./business-exception";
 
 @Catch()
-export class RpcServiceExceptionFilter implements ExceptionFilter {
+export class RpcServiceExceptionFilter
+  extends BaseRpcExceptionFilter<BusinessException | Error>
+  implements RpcExceptionFilter<BusinessException | Error>
+{
   private logger = new Logger(RpcServiceExceptionFilter.name);
 
   catch(
-    exception: ExceptionContext | HttpException | Error,
+    exception: BusinessException | Error,
     host: ArgumentsHost,
-  ) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<FastifyReply>();
-    const request = ctx.getRequest<FastifyRequest>();
+  ): Observable<any> {
+    if (exception instanceof BusinessException) {
+      this.logger.warn(exception);
 
-    if (this.isBusinessException(exception)) {
-      const businessCode = exception.metadata.get('business_code')[0];
+      const metadata = new Metadata();
+      metadata.set("business_code", exception.code);
 
-      return response.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
-        statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-        businessCode: businessCode,
-        message: exception.message,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-      });
+      return super.catch(
+        new RpcException({
+          code: status.FAILED_PRECONDITION,
+          message: exception.message,
+          details: JSON.stringify(exception.details),
+          metadata,
+        }),
+        host,
+      );
     }
 
-    if (exception instanceof HttpException) {
-      if (exception.getStatus() >= 500) {
-        this.logger.error(exception);
-        this.logger.error({
-          body: request.body,
-          params: request.params,
-        });
-      }
-
-      return response.status(exception.getStatus()).send({
-        statusCode: exception.getStatus(),
-        message: exception.message,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-      });
-    }
-
-    this.logger.error(exception);
-    this.logger.error({
-      type: 'exception_metadata',
-      body: request.body,
-      params: request.params,
-    });
-
-    response.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-      message: 'Internal Server Error',
-      timestamp: new Date().toISOString(),
-      path: request.url,
-    });
-  }
-
-  private isBusinessException(
-    exception: unknown,
-  ): exception is ExceptionContext {
-    if (!(exception as ExceptionContext).metadata) return false;
-
-    return !!(exception as ExceptionContext).metadata.get('business_code')
-      .length;
+    return super.catch(exception, host);
   }
 }
