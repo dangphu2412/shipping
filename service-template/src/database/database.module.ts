@@ -1,36 +1,37 @@
-import { Global, Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { addTransactionalDataSource } from 'typeorm-transactional';
+import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
-import { Pool } from 'pg';
-import { drizzle } from 'drizzle-orm/node-postgres';
-import * as schema from './schema';
+import { join } from 'path';
+import { UserEntity } from './user.entity';
 
-export type DatabaseClient = ReturnType<typeof drizzle>;
-
-export const DB_TOKEN = 'DB_TOKEN';
-
-@Global()
 @Module({
-  providers: [
-    {
-      provide: DB_TOKEN,
-      useFactory: async (configService: ConfigService) => {
-        const pool = new Pool({
-          connectionString: configService.getOrThrow<string>('DATABASE_URL'),
-        });
-
-        const instance = drizzle(pool, { schema });
-
-        const client = await instance.$client.connect();
-
-        client.release();
-
-        Logger.log('Database connected');
-
-        return instance;
-      },
+  imports: [
+    TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-    },
+      useFactory: (configService: ConfigService) => {
+        return {
+          type: 'postgres',
+          migrationsRun: true,
+          synchronize: false,
+          entities: [UserEntity],
+          migrations: [join(__dirname, './migrations/*{.ts,.js}')],
+          migrationsTableName: 'migrations',
+          url: configService.getOrThrow<string>('DATABASE_URL'),
+          logging: configService.get('NODE_ENV') !== 'production',
+        };
+      },
+      dataSourceFactory: async (options) => {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+
+        return Promise.resolve(
+          addTransactionalDataSource(new DataSource(options)),
+        );
+      },
+    }),
   ],
-  exports: [DB_TOKEN],
 })
 export class DatabaseModule {}
