@@ -1,4 +1,4 @@
-import { BusinessException } from '../../../exception/exception';
+import { BusinessException } from '@dnp2412/service-common';
 
 export class User {
   public id: string;

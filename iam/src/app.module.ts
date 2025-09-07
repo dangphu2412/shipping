@@ -6,7 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { RegistrationModule } from './registration/registration.module';
 import { APP_FILTER } from '@nestjs/core';
-import { AppExceptionFilter } from './exception/exception';
+import { AppExceptionFilter } from '@dnp2412/service-common';
 
 @Module({
   imports: [

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@dnp2412/service-common':
+        specifier: 0.0.1
+        version: 0.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@11.1.6)
       '@dnp2412/shipping-protos':
         specifier: ^0.0.4
         version: 0.0.4(@types/node@22.17.0)
@@ -424,6 +427,13 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@dnp2412/service-common@0.0.1':
+    resolution: {integrity: sha512-mIqVK/zhRSiVrDxYwMfFJi2PBwFIf8D0NrlcHmmbLIFiJCFNnNutJ0YOPMD19b2qQJZwNimZcOzZ/ctFm5G+FA==}
+    engines: {node: 22.x, pnpm: 10.x}
+    peerDependencies:
+      '@nestjs/common': ^11.x.x
+      '@nestjs/microservices': ^11.x.x
 
   '@dnp2412/shipping-protos@0.0.4':
     resolution: {integrity: sha512-qv0FGhisXBG4FoDQ5GJ5susug7csvTBwaikYoVD046CLw6hIhXpJR9ZbSe6vfd1N5h7x7MV2pmpwck/qUd03sw==}
@@ -5054,6 +5064,12 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@dnp2412/service-common@0.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@11.1.6)':
+    dependencies:
+      '@grpc/grpc-js': 1.13.4
+      '@nestjs/common': 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/microservices': 11.1.6(@grpc/grpc-js@1.13.4)(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
   '@dnp2412/shipping-protos@0.0.4(@types/node@22.17.0)':
     dependencies:

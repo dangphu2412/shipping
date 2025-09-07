@@ -10,7 +10,7 @@ import {
   TokenCredentialService,
   TokenCredentialServiceToken,
 } from './token-credential-service';
-import { BusinessException } from '../../exception/exception';
+import { BusinessException } from '@dnp2412/service-common';
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler

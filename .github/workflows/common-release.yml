@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "protobuf/**"
+      - "service-common/**"
 
 permissions:
   contents: write
@@ -26,28 +26,19 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
           cache: pnpm
-          cache-dependency-path: protobuf/pnpm-lock.yaml
+          cache-dependency-path: service-common/pnpm-lock.yaml
           registry-url: "https://registry.npmjs.org"
 
-      - name: Setup buf
-        uses: bufbuild/buf-setup-action@v1
-        with:
-          version: 1.57.0
-
-      - name: Generate protos
-        working-directory: ./protobuf
-        run: buf generate
-
       - name: Install deps
-        working-directory: ./protobuf
+        working-directory: ./service-common
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        working-directory: ./protobuf
+        working-directory: ./service-common
         run: pnpm run build
 
       - name: Version packages (Changesets)
-        working-directory: ./protobuf
+        working-directory: ./service-common
         run: pnpm changeset version
 
       - name: Publish to npm
@@ -59,7 +50,7 @@ jobs:
       - name: Commit version bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "ci: release protobuf versions [skip ci]"
+          commit_message: "ci: release service-common versions [skip ci]"
           commit_user_name: github-actions
           commit_user_email: github-actions@github.com
           push_options: --force
