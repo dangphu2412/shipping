@@ -12,8 +12,8 @@ importers:
         specifier: 0.1.0
         version: 0.1.0(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@11.1.6)
       '@dnp2412/shipping-protos':
-        specifier: ^0.1.0
-        version: 0.1.0(@types/node@22.17.0)
+        specifier: 0.2.0
+        version: 0.2.0(@types/node@22.17.0)
       '@fastify/compress':
         specifier: ^8.1.0
         version: 8.1.0
@@ -435,8 +435,8 @@ packages:
       '@nestjs/common': ^11.x.x
       '@nestjs/microservices': ^11.x.x
 
-  '@dnp2412/shipping-protos@0.1.0':
-    resolution: {integrity: sha512-OHgA1W5dWEzHN+6ljdVbHrYJWcD8gSGR9tVhI0rmOFy2QMDz6qXIBzpM164ds5ZLS3+Oo+2YVOCvOohkQ/S06Q==}
+  '@dnp2412/shipping-protos@0.2.0':
+    resolution: {integrity: sha512-dNLy4c4gLi+nSIYQxT5g9DZkufkt9asBmGkH809HI1eSOsjXLhE6hXlbtdvM2C9DLnpbfHw4zDaaBg7u1ux1lg==}
     engines: {node: 22.x, pnpm: 10.x}
 
   '@drizzle-team/brocli@0.10.2':
@@ -5071,7 +5071,7 @@ snapshots:
       '@nestjs/common': 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/microservices': 11.1.6(@grpc/grpc-js@1.13.4)(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
-  '@dnp2412/shipping-protos@0.1.0(@types/node@22.17.0)':
+  '@dnp2412/shipping-protos@0.2.0(@types/node@22.17.0)':
     dependencies:
       '@changesets/cli': 2.29.6(@types/node@22.17.0)
     transitivePeerDependencies:
