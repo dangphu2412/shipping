@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Metadata } from '@grpc/grpc-js';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 type ExceptionContext = {
   code: string;
@@ -18,8 +18,8 @@ type ExceptionContext = {
 };
 
 @Catch()
-export class AppExceptionFilter implements ExceptionFilter {
-  private logger = new Logger(AppExceptionFilter.name);
+export class RpcServiceExceptionFilter implements ExceptionFilter {
+  private logger = new Logger(RpcServiceExceptionFilter.name);
 
   catch(
     exception: ExceptionContext | HttpException | Error,
@@ -29,7 +29,6 @@ export class AppExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
 
-    console.log(this.isBusinessException(exception))
     if (this.isBusinessException(exception)) {
       const businessCode = exception.metadata.get('business_code')[0];
 

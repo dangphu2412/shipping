@@ -14,6 +14,9 @@ type ExceptionContext = {
   details?: Record<string, unknown>;
 };
 
+/**
+ * @deprecated
+ */
 export class BusinessException extends Error {
   code: string;
   details?: Record<string, unknown>;
