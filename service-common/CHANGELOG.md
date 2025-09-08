@@ -1,5 +1,11 @@
 # @dnp2412/service-common
 
+## 1.0.0
+
+### Major Changes
+
+- bd45209: [Exception] Remove app exception filter
+
 ## 0.1.1
 
 ### Patch Changes

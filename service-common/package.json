@@ -1,6 +1,6 @@
 {
   "name": "@dnp2412/service-common",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
   "engines": {
