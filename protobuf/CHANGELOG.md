@@ -1,5 +1,11 @@
 # @dangphu2412/shipping-protos
 
+## 0.3.0
+
+### Minor Changes
+
+- a49c677: [MDM] Search Country
+
 ## 0.2.0
 
 ### Minor Changes
