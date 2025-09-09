@@ -1,4 +1,4 @@
-import { UserRepository } from '../use-cases/repositories/user.repository';
+import { UserRepository } from '../domain/repositories/user.repository';
 import { Injectable } from '@nestjs/common';
 import { UserEntity } from '../../database/user.entity';
 import { User } from '../domain/entities/user.entity';
