@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.mdm.country.v1;
+
+message SearchCountry {
+  optional string search_term = 1;
+}
+
+message Country {
+  string code = 1;
+  string name = 2;
+}
+
+message SearchMetadata {
+  int32 total_items = 1;
+}
+
+message SearchCountryResult {
+  repeated Country items = 1;
+  SearchMetadata metadata = 2;
+}
+
+service CountryService {
+  rpc search(SearchCountry) returns (SearchCountryResult);
+}
