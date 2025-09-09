@@ -4,7 +4,7 @@ import { UserCredentialsResponse } from '../response/user-crendetial.response';
 import {
   UserRepository,
   UserRepositoryToken,
-} from '../repositories/user.repository';
+} from '../../domain/repositories/user.repository';
 import { Inject } from '@nestjs/common';
 import { User } from '../../domain/entities/user.entity';
 import { BusinessException } from '@dnp2412/service-common';

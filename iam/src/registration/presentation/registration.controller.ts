@@ -20,19 +20,19 @@ export class RegistrationController
   constructor(private commandBus: CommandBus) {}
 
   login(userBasicLogin: UserBasicLogin): Promise<UserCredentials> {
-    return this.commandBus.execute<LoginUserCommand, UserCredentials>(
+    return this.commandBus.execute(
       new LoginUserCommand(userBasicLogin.username, userBasicLogin.password),
     );
   }
 
   renew(userSessionRenewal: UserSessionRenewal): Promise<UserCredentials> {
-    return this.commandBus.execute<SessionRenewalCommand, UserCredentials>(
+    return this.commandBus.execute(
       new SessionRenewalCommand(userSessionRenewal.refreshToken),
     );
   }
 
   register(userRegistration: UserRegistration): Promise<UserCredentials> {
-    return this.commandBus.execute<RegisterUserCommand, UserCredentials>(
+    return this.commandBus.execute(
       new RegisterUserCommand(
         userRegistration.username,
         userRegistration.password,

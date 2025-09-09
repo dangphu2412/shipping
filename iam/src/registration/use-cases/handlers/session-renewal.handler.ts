@@ -1,9 +1,4 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import {
-  UserRepository,
-  UserRepositoryToken,
-} from '../repositories/user.repository';
-import { Inject } from '@nestjs/common';
 import { UserCredentialsResponse } from '../response/user-crendetial.response';
 import { SessionRenewalCommand } from '../commands/session-renewal.command';
 import { UserCredentialService } from '../services/user-credential-service';
@@ -13,11 +8,7 @@ import { BusinessException } from '@dnp2412/service-common';
 export class SessionRenewalHandler
   implements ICommandHandler<SessionRenewalCommand, UserCredentialsResponse>
 {
-  constructor(
-    @Inject(UserRepositoryToken)
-    private readonly userRepository: UserRepository,
-    private readonly userCredentialService: UserCredentialService,
-  ) {}
+  constructor(private readonly userCredentialService: UserCredentialService) {}
 
   async execute(
     command: SessionRenewalCommand,
