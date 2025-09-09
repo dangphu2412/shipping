@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { Metadata } from '@grpc/grpc-js';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { BusinessException } from "./business-exception";
 
 type HttpGatewayExceptionContext = {
   code: string;
@@ -30,7 +31,7 @@ export class HttpGatewayExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<FastifyRequest>();
 
     if (this.isBusinessException(exception)) {
-      const businessCode = exception.metadata.get('business_code')[0];
+      const businessCode = exception.metadata.get(BusinessException.BUSINESS_CODE_ID)[0];
 
       return response.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
         statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -79,7 +80,7 @@ export class HttpGatewayExceptionFilter implements ExceptionFilter {
     if (!(exception as HttpGatewayExceptionContext).metadata) return false;
 
     return !!(exception as HttpGatewayExceptionContext).metadata.get(
-      'business_code',
+      BusinessException.BUSINESS_CODE_ID,
     ).length;
   }
 }

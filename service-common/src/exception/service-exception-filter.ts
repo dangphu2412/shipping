@@ -24,7 +24,7 @@ export class RpcServiceExceptionFilter
       this.logger.warn(exception);
 
       const metadata = new Metadata();
-      metadata.set("business_code", exception.code);
+      metadata.set(BusinessException.BUSINESS_CODE_ID, exception.code);
 
       return super.catch(
         new RpcException({

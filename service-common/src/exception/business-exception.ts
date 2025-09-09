@@ -5,6 +5,8 @@ type BusinessExceptionContext = {
 };
 
 export class BusinessException extends Error {
+  static readonly BUSINESS_CODE_ID = 'business_code';
+
   code: string;
   details?: Record<string, unknown>;
 
