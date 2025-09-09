@@ -1,11 +1,13 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { SearchCountriesCommand } from '../commands/search-countries.command';
+import {
+  SearchCountriesCommand,
+  SearchCountryResult,
+} from '../commands/search-countries.command';
 import {
   CountryRepository,
   CountryRepositoryToken,
 } from '../../domain/repositories/country.repository';
 import { Inject } from '@nestjs/common';
-import { Country } from '../../domain/entities/country.entity';
 
 @QueryHandler(SearchCountriesCommand)
 export class SearchCountryHandler
@@ -16,7 +18,9 @@ export class SearchCountryHandler
     private readonly countryRepository: CountryRepository,
   ) {}
 
-  execute(searchCountriesCommand: SearchCountriesCommand): Promise<Country[]> {
+  async execute(
+    searchCountriesCommand: SearchCountriesCommand,
+  ): Promise<SearchCountryResult> {
     return this.countryRepository.search(searchCountriesCommand);
   }
 }

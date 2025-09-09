@@ -5,11 +5,13 @@ import { LoggerModule } from 'nestjs-pino';
 import { IamModule } from './iam/iam.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpGatewayExceptionFilter } from '@dnp2412/service-common';
+import { MdmModule } from './mdm/mdm.module';
 
 @Module({
   imports: [
     HealthCheckModule,
     IamModule,
+    MdmModule,
     ConfigModule.forRoot({ isGlobal: true }),
     LoggerModule.forRootAsync({
       inject: [ConfigService],

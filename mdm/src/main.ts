@@ -13,9 +13,9 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        port: 5001,
-        package: 'proto.iam.registration.v1',
-        protoPath: 'proto/iam/registration/v1/user_registration.proto',
+        url: '0.0.0.0:5001',
+        package: 'proto.mdm.country.v1',
+        protoPath: ['proto/mdm/country/v1/country.proto'],
         loader: {
           includeDirs: [
             join(process.cwd(), 'node_modules/@dnp2412/shipping-protos'),
@@ -32,7 +32,7 @@ async function bootstrap() {
   app.useLogger(logger);
 
   await app.listen();
-  logger.log('App listening on port GRPC 5000');
+  logger.log('App listening on port GRPC 5001');
 }
 
 bootstrap();

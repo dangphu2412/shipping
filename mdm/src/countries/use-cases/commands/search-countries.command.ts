@@ -1,6 +1,15 @@
 import { Query } from '@nestjs/cqrs';
 import { Country } from '../../domain/entities/country.entity';
 
-export class SearchCountriesCommand extends Query<Country[]> {
-  searchTerm?: string;
+export type SearchCountryResult = {
+  items: Country[];
+  metadata: {
+    totalItems: number;
+  };
+};
+
+export class SearchCountriesCommand extends Query<SearchCountryResult> {
+  constructor(public searchTerm?: string) {
+    super();
+  }
 }

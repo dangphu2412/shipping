@@ -13,7 +13,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        port: 5000,
+        url: '0.0.0.0:5000',
         package: 'proto.iam.registration.v1',
         protoPath: 'proto/iam/registration/v1/user_registration.proto',
         loader: {

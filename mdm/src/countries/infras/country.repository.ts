@@ -1,6 +1,7 @@
 import {
   CountryRepository,
   SearchCountryDTO,
+  SearchCountryResult,
 } from '../domain/repositories/country.repository';
 import { Injectable } from '@nestjs/common';
 import { CountryEntity } from '../../database/country.entity';
@@ -22,9 +23,31 @@ export class CountryRepositoryImpl implements CountryRepository {
     return user;
   }
 
-  async search(searchCountryDTO: SearchCountryDTO): Promise<Country[]> {
-    const countries = await this.datasource.manager.find(CountryEntity);
+  async search(
+    searchCountryDTO: SearchCountryDTO,
+  ): Promise<SearchCountryResult> {
+    const filterConditions = searchCountryDTO.searchTerm
+      ? {
+          code: searchCountryDTO.searchTerm,
+          name: searchCountryDTO.searchTerm,
+        }
+      : undefined;
+    const [countries, totalItems] = await Promise.all([
+      this.datasource.manager.find(CountryEntity, {
+        where: filterConditions,
+      }),
+      this.datasource.manager.count(CountryEntity, {
+        where: filterConditions,
+      }),
+    ]);
 
-    return countries.map((country) => CountryRepositoryImpl.toDomain(country));
+    return {
+      items: countries.map((country) =>
+        CountryRepositoryImpl.toDomain(country),
+      ),
+      metadata: {
+        totalItems,
+      },
+    };
   }
 }

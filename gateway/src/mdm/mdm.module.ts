@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { RegistrationController } from './registration.controller';
+import { CountryController } from './country.controller';
 
 @Module({
-  controllers: [RegistrationController],
+  controllers: [CountryController],
   imports: [
     ClientsModule.register([
       {
-        name: 'IAM_REGISTRATION',
+        name: 'MDM',
         transport: Transport.GRPC,
         options: {
-          url: '0.0.0.0:5000',
-          package: 'proto.iam.registration.v1',
-          protoPath: 'proto/iam/registration/v1/user_registration.proto',
+          url: '0.0.0.0:5001',
+          package: 'proto.mdm.country.v1',
+          protoPath: ['proto/mdm/country/v1/country.proto'],
           loader: {
             includeDirs: [
               join(process.cwd(), 'node_modules/@dnp2412/shipping-protos'),
@@ -26,4 +26,4 @@ import { RegistrationController } from './registration.controller';
     ]),
   ],
 })
-export class IamModule {}
+export class MdmModule {}
