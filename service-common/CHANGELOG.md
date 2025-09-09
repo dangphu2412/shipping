@@ -1,5 +1,11 @@
 # @dnp2412/service-common
 
+## 1.0.1
+
+### Patch Changes
+
+- 66070fa: [Exception] extract constant
+
 ## 1.0.0
 
 ### Major Changes
