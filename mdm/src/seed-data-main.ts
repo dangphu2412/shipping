@@ -1,21 +1,16 @@
+import { NestFactory } from '@nestjs/core';
+import { SeederService } from './seeders/seeder.service';
+import { initializeTransactionalContext } from 'typeorm-transactional';
 import { Module, RequestMethod } from '@nestjs/common';
-import { HealthCheckModule } from './health-check/health-check.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { DatabaseModule } from './database/database.module';
-import { CqrsModule } from '@nestjs/cqrs';
-import { CountryModule } from './countries/country.module';
-import { APP_FILTER } from '@nestjs/core';
-import { RpcServiceExceptionFilter } from '@dnp2412/service-common';
 import { SeederModule } from './seeders/seeder.module';
 
 @Module({
   imports: [
     DatabaseModule,
-    HealthCheckModule,
-    CountryModule,
     SeederModule,
-    CqrsModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
     LoggerModule.forRootAsync({
       inject: [ConfigService],
@@ -33,11 +28,15 @@ import { SeederModule } from './seeders/seeder.module';
       },
     }),
   ],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: RpcServiceExceptionFilter,
-    },
-  ],
 })
-export class AppModule {}
+class AppModule {}
+
+async function bootstrap() {
+  initializeTransactionalContext();
+  const appContext = await NestFactory.createApplicationContext(AppModule);
+  const seeder = appContext.get(SeederService);
+
+  await seeder.run();
+  await appContext.close();
+}
+bootstrap();
