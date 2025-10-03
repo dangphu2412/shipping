@@ -31,6 +31,7 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
+        logLevel: 5,
         clientId: 'mdm',
         brokers: ['localhost:19092', 'localhost:19093'],
       },
