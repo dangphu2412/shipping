@@ -1,6 +1,8 @@
 import { BusinessException } from '@dnp2412/service-common';
+import { AggregateRoot } from '@nestjs/cqrs';
+import { v7 as uuid } from 'uuid';
 
-export class User {
+export class User extends AggregateRoot {
   public id: string;
   public username: string;
   public name: string;
@@ -17,9 +19,12 @@ export class User {
       });
     }
 
+    newUser.id = uuid();
     newUser.username = username;
     newUser.password = passwordHash;
     newUser.name = name;
+
+    // newUser.apply(new UserRegisteredEvent(newUser.id, newUser.username));
     return newUser;
   }
 }

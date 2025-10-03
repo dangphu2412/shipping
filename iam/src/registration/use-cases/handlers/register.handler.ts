@@ -10,6 +10,8 @@ import { User } from '../../domain/entities/user.entity';
 import { BusinessException } from '@dnp2412/service-common';
 import { UserCredentialService } from '../services/user-credential-service';
 import { Hasher, HasherToken } from '../services/hasher';
+import { ClientProxy } from '@nestjs/microservices';
+import { UserRegisteredEvent } from '../../domain/events/user-registered.event';
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler
@@ -21,6 +23,8 @@ export class RegisterUserHandler
     @Inject(HasherToken)
     private readonly hasher: Hasher,
     private readonly userCredentialService: UserCredentialService,
+    @Inject('IAM_SERVICE')
+    private readonly client: ClientProxy,
   ) {}
 
   async execute(
@@ -42,6 +46,11 @@ export class RegisterUserHandler
     );
 
     const id = await this.userRepository.createNew(newUser);
+
+    this.client.emit(
+      'IAM_USER_REGISTERED_EVENT',
+      new UserRegisteredEvent(newUser.id, newUser.id, newUser.username),
+    );
 
     return this.userCredentialService.getUserCredentials(id);
   }

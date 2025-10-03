@@ -11,7 +11,7 @@ import {
 @CountryServiceControllerMethods()
 @Controller()
 export class CountryController implements CountryServiceController {
-  constructor(private queryBus: QueryBus) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
   search(request: SearchCountry): Promise<SearchCountryResult> {
     return this.queryBus.execute(

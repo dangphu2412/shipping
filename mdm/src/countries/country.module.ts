@@ -3,9 +3,10 @@ import { SearchCountryHandler } from './use-cases/handlers/search-country.handle
 import { CountryRepositoryToken } from './domain/repositories/country.repository';
 import { CountryController } from './presentation/country.controller';
 import { CountryRepositoryImpl } from './infras/country.repository';
+import { CountryEventController } from './presentation/country-event.controller';
 
 @Module({
-  controllers: [CountryController],
+  controllers: [CountryController, CountryEventController],
   providers: [
     SearchCountryHandler,
     {

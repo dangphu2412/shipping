@@ -8,8 +8,11 @@ import { initializeTransactionalContext } from 'typeorm-transactional';
 async function bootstrap() {
   initializeTransactionalContext();
 
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
+
+  app.connectMicroservice<MicroserviceOptions>(
     {
       transport: Transport.GRPC,
       options: {
@@ -24,14 +27,29 @@ async function bootstrap() {
           objects: true,
         },
       },
-      bufferLogs: true,
+    },
+    {
+      inheritAppConfig: true,
     },
   );
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: 'iam',
+        brokers: ['localhost:19092', 'localhost:19093'],
+      },
+      consumer: {
+        groupId: 'iam-service-group',
+      },
+    },
+  });
   const logger = app.get(Logger);
 
   app.useLogger(logger);
 
-  await app.listen();
+  await app.init();
+  await app.startAllMicroservices();
   logger.log('App listening on port GRPC 5000');
 }
 

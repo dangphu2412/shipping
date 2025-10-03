@@ -20,6 +20,7 @@ export class RegistrationController
   constructor(private commandBus: CommandBus) {}
 
   login(userBasicLogin: UserBasicLogin): Promise<UserCredentials> {
+    console.log(userBasicLogin);
     return this.commandBus.execute(
       new LoginUserCommand(userBasicLogin.username, userBasicLogin.password),
     );

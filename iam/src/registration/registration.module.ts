@@ -10,8 +10,23 @@ import { TokenCredentialServiceToken } from './use-cases/services/token-credenti
 import { UserCredentialService } from './use-cases/services/user-credential-service';
 import { LoginUserHandler } from './use-cases/handlers/login.handler';
 import { SessionRenewalHandler } from './use-cases/handlers/session-renewal.handler';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
+  imports: [
+    ClientsModule.register([
+      {
+        name: 'IAM_SERVICE',
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'iam',
+            brokers: ['localhost:19092', 'localhost:19093'],
+          },
+        },
+      },
+    ]),
+  ],
   controllers: [RegistrationController],
   providers: [
     RegisterUserHandler,
