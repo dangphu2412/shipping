@@ -17,7 +17,7 @@ import { SessionRenewalCommand } from '../use-cases/commands/session-renewal.com
 export class RegistrationController
   implements UserRegistrationServiceController
 {
-  constructor(private commandBus: CommandBus) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   login(userBasicLogin: UserBasicLogin): Promise<UserCredentials> {
     console.log(userBasicLogin);
