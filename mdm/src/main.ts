@@ -31,12 +31,18 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        logLevel: 5,
+        // logLevel: 5,
         clientId: 'mdm',
         brokers: ['localhost:19092', 'localhost:19093'],
       },
       consumer: {
         groupId: 'mdm-service-group',
+      },
+      producer: {
+        retry: {
+          retries: 2,
+          initialRetryTime: 300,
+        },
       },
     },
   });

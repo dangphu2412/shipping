@@ -1,10 +1,11 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller, Logger, UseFilters } from '@nestjs/common';
 import {
   Ctx,
   EventPattern,
-  KafkaContext,
+  KafkaContext, KafkaRetriableException,
   Payload,
 } from '@nestjs/microservices';
+import { KafkaMaxRetryExceptionFilter } from '../../shared/kafka/kafka-retry-handler';
 
 export class UserRegisteredEvent {
   constructor(
@@ -15,6 +16,7 @@ export class UserRegisteredEvent {
   ) {}
 }
 
+@UseFilters(KafkaMaxRetryExceptionFilter)
 @Controller()
 export class CountryEventController {
   @EventPattern('IAM_USER_REGISTERED_EVENT')
@@ -34,8 +36,8 @@ export class CountryEventController {
         }
 
         Logger.log('Raise error');
-        reject(new Error('Handler getting error'));
-      }, 10000);
+        reject(new KafkaRetriableException('Exception retry raised'));
+      }, 1000);
     });
   }
 }

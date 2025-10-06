@@ -11,6 +11,7 @@ import { SeederModule } from './seeders/seeder.module';
 
 @Module({
   imports: [
+    // KafkaModule,
     DatabaseModule,
     HealthCheckModule,
     CountryModule,
