@@ -23,8 +23,13 @@ message UserCredentials {
   string refresh_token = 2;
 }
 
+message UserApproval {
+  string userId = 1;
+}
+
 service UserRegistrationService {
   rpc register(UserRegistration) returns (UserCredentials);
   rpc login(UserBasicLogin) returns (UserCredentials);
   rpc renew(UserSessionRenewal) returns (UserCredentials);
+  rpc approve(UserApproval) returns (google.protobuf.Empty);
 }
