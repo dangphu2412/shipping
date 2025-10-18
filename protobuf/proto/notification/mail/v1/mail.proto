@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto.notification.mail.v1;
+
+import "google/protobuf/empty.proto";
+
+message MailBody {
+  repeated string to = 1;
+}
+
+service MailService {
+  rpc send(MailBody) returns (google.protobuf.Empty);
+}

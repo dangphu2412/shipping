@@ -1,9 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UserCredentialsResponse } from '../response/user-crendetial.response';
-import {
-  UserRepository,
-  UserRepositoryToken,
-} from '../../domain/repositories/user.repository';
+import { UserRepository } from '../../domain/repositories/user.repository';
 import { Inject } from '@nestjs/common';
 import { BusinessException } from '@dnp2412/service-common';
 import { LoginUserCommand } from '../commands/login.command';
@@ -15,7 +12,7 @@ export class LoginUserHandler
   implements ICommandHandler<LoginUserCommand, UserCredentialsResponse>
 {
   constructor(
-    @Inject(UserRepositoryToken)
+    @Inject(UserRepository)
     private readonly userRepository: UserRepository,
     @Inject(HasherToken)
     private readonly hasher: Hasher,

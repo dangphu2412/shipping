@@ -3,30 +3,20 @@ import { RegisterUserHandler } from './use-cases/handlers/register.handler';
 import { HasherToken } from './use-cases/services/hasher';
 import { BcryptHasher } from './infras/bcrypt-hasher';
 import { UserRepositoryImpl } from './infras/user.repository';
-import { UserRepositoryToken } from './domain/repositories/user.repository';
+import { UserRepository } from './domain/repositories/user.repository';
 import { RegistrationController } from './presentation/registration.controller';
 import { JWTTokenCredentialService } from './infras/jwt-token-credential-service';
 import { TokenCredentialServiceToken } from './use-cases/services/token-credential-service';
 import { UserCredentialService } from './use-cases/services/user-credential-service';
 import { LoginUserHandler } from './use-cases/handlers/login.handler';
 import { SessionRenewalHandler } from './use-cases/handlers/session-renewal.handler';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { OrkesModule } from '../shared/orkes.client';
+import { KafkaModule } from '../shared/kafka.client';
+
+const USER_ONBOARDING_CLIENT = Symbol.for('USER_ONBOARDING_CLIENT');
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'IAM_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: 'iam',
-            brokers: ['localhost:19092', 'localhost:19093'],
-          },
-        },
-      },
-    ]),
-  ],
+  imports: [OrkesModule, KafkaModule],
   controllers: [RegistrationController],
   providers: [
     RegisterUserHandler,
@@ -38,7 +28,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       useClass: BcryptHasher,
     },
     {
-      provide: UserRepositoryToken,
+      provide: UserRepository,
       useClass: UserRepositoryImpl,
     },
     {

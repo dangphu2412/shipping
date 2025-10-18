@@ -7,6 +7,8 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { RegistrationModule } from './registration/registration.module';
 import { APP_FILTER } from '@nestjs/core';
 import { RpcServiceExceptionFilter } from '@dnp2412/service-common';
+import { OrkesModule } from './shared/orkes.client';
+import { KafkaModule } from './shared/kafka.client';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { RpcServiceExceptionFilter } from '@dnp2412/service-common';
     RegistrationModule,
     CqrsModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
+    OrkesModule,
+    KafkaModule,
     LoggerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {

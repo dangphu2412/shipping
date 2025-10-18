@@ -12,8 +12,8 @@ importers:
         specifier: 0.1.1
         version: 0.1.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@11.1.6)
       '@dnp2412/shipping-protos':
-        specifier: 0.2.0
-        version: 0.2.0(@types/node@22.17.0)
+        specifier: 0.3.1
+        version: 0.3.1(@types/node@22.17.0)
       '@fastify/compress':
         specifier: ^8.1.0
         version: 8.1.0
@@ -23,6 +23,9 @@ importers:
       '@grpc/proto-loader':
         specifier: ^0.8.0
         version: 0.8.0
+      '@io-orkes/conductor-javascript':
+        specifier: ^2.1.5
+        version: 2.1.5
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -441,8 +444,8 @@ packages:
       '@nestjs/common': ^11.x.x
       '@nestjs/microservices': ^11.x.x
 
-  '@dnp2412/shipping-protos@0.2.0':
-    resolution: {integrity: sha512-dNLy4c4gLi+nSIYQxT5g9DZkufkt9asBmGkH809HI1eSOsjXLhE6hXlbtdvM2C9DLnpbfHw4zDaaBg7u1ux1lg==}
+  '@dnp2412/shipping-protos@0.3.1':
+    resolution: {integrity: sha512-YaYttBLm1uPJ37hpBS1nYGP1uM7nqafCChNm52cgvAEhsFZFgtAKd7eg4Tmkov6j3L8B/W+PfhbqSctKIMyeIA==}
     engines: {node: 22.x, pnpm: 10.x}
 
   '@drizzle-team/brocli@0.10.2':
@@ -987,6 +990,10 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+
+  '@io-orkes/conductor-javascript@2.1.5':
+    resolution: {integrity: sha512-5xED/dvldTsAXmYZNWPWSExPkDrfmm1xD19sHjdFvbMBedRKPzvVQMOWh1j5cMTR99u40mijtkxWt3VWfCoBIA==}
+    engines: {node: '>=18'}
 
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
@@ -5085,7 +5092,7 @@ snapshots:
       '@nestjs/common': 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/microservices': 11.1.6(@grpc/grpc-js@1.13.4)(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(kafkajs@2.2.4)(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
-  '@dnp2412/shipping-protos@0.2.0(@types/node@22.17.0)':
+  '@dnp2412/shipping-protos@0.3.1(@types/node@22.17.0)':
     dependencies:
       '@changesets/cli': 2.29.6(@types/node@22.17.0)
     transitivePeerDependencies:
@@ -5513,6 +5520,8 @@ snapshots:
   '@inquirer/type@3.0.8(@types/node@22.17.0)':
     optionalDependencies:
       '@types/node': 22.17.0
+
+  '@io-orkes/conductor-javascript@2.1.5': {}
 
   '@isaacs/balanced-match@4.0.1': {}
 
