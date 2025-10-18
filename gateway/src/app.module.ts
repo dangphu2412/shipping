@@ -6,12 +6,14 @@ import { IamModule } from './iam/iam.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpGatewayExceptionFilter } from '@dnp2412/service-common';
 import { MdmModule } from './mdm/mdm.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
     HealthCheckModule,
     IamModule,
     MdmModule,
+    NotificationModule,
     ConfigModule.forRoot({ isGlobal: true }),
     LoggerModule.forRootAsync({
       inject: [ConfigService],
