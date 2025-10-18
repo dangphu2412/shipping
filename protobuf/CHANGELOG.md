@@ -1,5 +1,11 @@
 # @dangphu2412/shipping-protos
 
+## 0.4.0
+
+### Minor Changes
+
+- 65cdeac: Notification mail service
+
 ## 0.3.1
 
 ### Patch Changes
