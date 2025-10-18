@@ -1,5 +1,11 @@
 # @dangphu2412/shipping-protos
 
+## 0.3.1
+
+### Patch Changes
+
+- 0d76063: IAM Approval user
+
 ## 0.3.0
 
 ### Minor Changes
