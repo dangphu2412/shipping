@@ -132,7 +132,7 @@ export class RegisterUserHandler
 
     await this.client.workflowResource.startWorkflow({
       name: 'Onboarding',
-      version: 7,
+      version: 2,
       input: {
         userId: id,
       },

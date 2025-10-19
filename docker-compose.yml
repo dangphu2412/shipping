@@ -89,3 +89,8 @@ services:
       KAFKA_ENABLED: "true"
       KAFKA_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9093"
       KAFKA_SECURITY_PROTOCOL: "PLAINTEXT"
+
+      # === Kafka Eventing Sink ===
+      CONFIG_PROP_conductor_event_processor_enabled: "true"
+      CONFIG_PROP_conductor_event_queues_kafka_bootstrap_servers: "kafka-1:9092,kafka-2:9093"
+      CONFIG_PROP_conductor_event_queues_kafka_enabled: "true"
