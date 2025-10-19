@@ -13,8 +13,6 @@ import { SessionRenewalHandler } from './use-cases/handlers/session-renewal.hand
 import { OrkesModule } from '../shared/orkes.client';
 import { KafkaModule } from '../shared/kafka.client';
 
-const USER_ONBOARDING_CLIENT = Symbol.for('USER_ONBOARDING_CLIENT');
-
 @Module({
   imports: [OrkesModule, KafkaModule],
   controllers: [RegistrationController],

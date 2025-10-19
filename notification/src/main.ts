@@ -13,9 +13,9 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        port: 5001,
-        package: 'proto.iam.registration.v1',
-        protoPath: 'proto/iam/registration/v1/user_registration.proto',
+        url: '0.0.0.0:5001',
+        package: 'proto.notification.mail.v1',
+        protoPath: 'proto/notification/mail/v1/mail.proto',
         loader: {
           includeDirs: [
             join(process.cwd(), 'node_modules/@dnp2412/shipping-protos'),

@@ -15,5 +15,6 @@ export const ORKES_CLIENT = Symbol('ORKES_CLIENT');
       },
     },
   ],
+  exports: [ORKES_CLIENT],
 })
 export class OrkesModule {}

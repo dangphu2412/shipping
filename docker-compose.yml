@@ -79,7 +79,7 @@ services:
       - redis
     ports:
       - "8081:8080"
-      - "5000:5000"
+      - "4888:5000"
     environment:
       # === DB / Redis (auto-configured internally for standalone) ===
       LOADSAMPLE: "true"
