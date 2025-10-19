@@ -9,54 +9,94 @@ import { ORKES_CLIENT } from '../../../shared/orkes.client';
 import { ConductorClient } from '@io-orkes/conductor-javascript';
 
 // {
+//   "ownerApp": null,
+//   "createTime": 1760781746235,
+//   "updateTime": 1760847756353,
+//   "createdBy": null,
+//   "updatedBy": null,
+//   "accessPolicy": {},
 //   "name": "Onboarding",
 //   "description": "Onboarding user workflow",
-//   "version": 1,
+//   "version": 7,
 //   "tasks": [
 //   {
 //     "name": "Onboarding",
-//     "type": "HTTP",
+//     "taskReferenceName": "send_notification_task",
+//     "description": null,
 //     "inputParameters": {
 //       "http_request": {
-//         "uri": "http://localhost:3000/notification",
+//         "uri": "http://host.docker.internal:3000/notifications/mails",
 //         "method": "POST",
 //         "body": {
-//           "recipients": "${workflow.input.to}"
+//           "to": [
+//             "${workflow.input.userId}"
+//           ]
 //         },
 //         "contentType": "application/json"
 //       }
-//     }
+//     },
+//     "type": "HTTP",
+//     "dynamicTaskNameParam": null,
+//     "caseValueParam": null,
+//     "caseExpression": null,
+//     "scriptExpression": null,
+//     "dynamicForkJoinTasksParam": null,
+//     "dynamicForkTasksParam": null,
+//     "dynamicForkTasksInputParamName": null,
+//     "startDelay": 0,
+//     "subWorkflowParam": null,
+//     "sink": null,
+//     "optional": false,
+//     "taskDefinition": null,
+//     "rateLimited": null,
+//     "asyncComplete": false,
+//     "loopCondition": null,
+//     "retryCount": null,
+//     "evaluatorType": null,
+//     "expression": null
 //   }
 // ],
-//   "inputParameters": ["to"],
+//   "inputParameters": [
+//   "to"
+// ],
+//   "outputParameters": {},
+//   "failureWorkflow": null,
 //   "schemaVersion": 2,
 //   "restartable": true,
 //   "workflowStatusListenerEnabled": false,
 //   "ownerEmail": "example@email.com",
 //   "timeoutPolicy": "ALERT_ONLY",
-//   "timeoutSeconds": 0
+//   "timeoutSeconds": 0,
+//   "variables": {},
+//   "inputTemplate": {}
 // }
 
 // {
+//   "ownerApp": null,
+//   "createTime": null,
+//   "updateTime": 1760846941375,
+//   "createdBy": null,
+//   "updatedBy": "",
+//   "accessPolicy": {},
 //   "name": "send_notification_task",
-//   "description": "Send notification to list of recipients via HTTP POST /notification endpoint",
+//   "description": "Sends notification emails via internal service",
 //   "retryCount": 3,
-//   "timeoutSeconds": 120,
-//   "timeoutPolicy": "RETRY",
-//   "retryLogic": "FIXED",
-//   "retryDelaySeconds": 10,
-//   "responseTimeoutSeconds": 30,
-//   "ownerEmail": "example@email.com",
-//   "inputKeys": ["to"],
+//   "timeoutSeconds": 30,
+//   "inputKeys": [],
 //   "outputKeys": [],
-//   "type": "HTTP",
-//   "http_request": {
-//   "uri": "http://localhost/notifications/mails",
-//     "method": "POST",
-//     "contentType": "application/json",
-//     "body": "${workflow.input.to}",
-//     "readTimeOut": 30000
-// }
+//   "timeoutPolicy": "TIME_OUT_WF",
+//   "retryLogic": "FIXED",
+//   "retryDelaySeconds": 5,
+//   "responseTimeoutSeconds": 15,
+//   "concurrentExecLimit": null,
+//   "inputTemplate": {},
+//   "rateLimitPerFrequency": 10,
+//   "rateLimitFrequencyInSeconds": 60,
+//   "isolationGroupId": null,
+//   "executionNameSpace": null,
+//   "ownerEmail": "example@email.com",
+//   "pollTimeoutSeconds": null,
+//   "backoffScaleFactor": 1
 // }
 
 @CommandHandler(RegisterUserCommand)
@@ -92,7 +132,7 @@ export class RegisterUserHandler
 
     await this.client.workflowResource.startWorkflow({
       name: 'Onboarding',
-      version: 1,
+      version: 7,
       input: {
         userId: id,
       },
