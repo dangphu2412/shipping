@@ -12,5 +12,8 @@ export class ApprovalHandler implements ICommandHandler<ApprovalCommand, void> {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async execute(command: ApprovalCommand): Promise<void> {}
+  execute(command: ApprovalCommand): Promise<void> {
+    console.log(command);
+    return Promise.resolve();
+  }
 }

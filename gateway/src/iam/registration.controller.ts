@@ -1,9 +1,17 @@
-import { Body, Controller, Inject, OnModuleInit, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Inject,
+  OnModuleInit,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import {
   USER_REGISTRATION_SERVICE_NAME,
+  UserApproval,
+  UserBasicLogin,
   UserRegistration,
   UserRegistrationServiceClient,
-  UserBasicLogin,
   UserSessionRenewal,
 } from '@dnp2412/shipping-protos/dist/proto/iam/registration/v1/user_registration';
 import { ClientGrpc } from '@nestjs/microservices';
@@ -12,7 +20,10 @@ import { ClientGrpc } from '@nestjs/microservices';
 export class RegistrationController implements OnModuleInit {
   private userRegistrationServiceClient: UserRegistrationServiceClient;
 
-  constructor(@Inject('IAM_REGISTRATION') private client: ClientGrpc) {}
+  constructor(
+    @Inject('IAM_REGISTRATION')
+    private readonly client: ClientGrpc,
+  ) {}
 
   onModuleInit() {
     this.userRegistrationServiceClient =
@@ -33,5 +44,10 @@ export class RegistrationController implements OnModuleInit {
   @Post('renew')
   renew(@Body() body: UserSessionRenewal) {
     return this.userRegistrationServiceClient.renew(body);
+  }
+
+  @Patch('approve')
+  approve(@Body() body: UserApproval) {
+    return this.userRegistrationServiceClient.approve(body);
   }
 }

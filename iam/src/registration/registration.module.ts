@@ -12,6 +12,7 @@ import { LoginUserHandler } from './use-cases/handlers/login.handler';
 import { SessionRenewalHandler } from './use-cases/handlers/session-renewal.handler';
 import { OrkesModule } from '../shared/orkes.client';
 import { KafkaModule } from '../shared/kafka.client';
+import { ApprovalHandler } from './use-cases/handlers/approval.handler';
 
 @Module({
   imports: [OrkesModule, KafkaModule],
@@ -20,6 +21,7 @@ import { KafkaModule } from '../shared/kafka.client';
     RegisterUserHandler,
     LoginUserHandler,
     SessionRenewalHandler,
+    ApprovalHandler,
     UserCredentialService,
     {
       provide: HasherToken,
